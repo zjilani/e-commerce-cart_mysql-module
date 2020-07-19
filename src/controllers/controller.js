@@ -1,4 +1,3 @@
-const service = require('../services/services')
 const HttpError = require('../models/errors/httpError')
 
 // Create a new folder in Documer Service
@@ -20,6 +19,7 @@ exports.createCartTable= (req,res) => {
                                  'size VARCHAR(255),'+
                                  'color VARCHAR(255),'+
                                  'price INT(20) NOT NULL,'+
+                                 'quantityToBuy INT(20) NOT NULL DEFAULT 1,'+
                                  'quantity INT(20) NOT NULL,'+
                                  'PRIMARY KEY (customerId,variantId))';
     // console.log(sql)
@@ -74,7 +74,7 @@ exports.deleteCartProduct= (req, res) => {
     });
 }
 exports.getCartInfo= (req, res) => {
-    sql = "SELECT * FROM Cart WHERE customerId='"+req.query.customerId+"'"
+    let sql = "SELECT * FROM Cart WHERE customerId='"+req.query.customerId+"';"
     
     db.query(sql, (error, response) => {
         if(error){
@@ -91,5 +91,22 @@ exports.getCartInfo= (req, res) => {
     });
    
 }
-
+exports.updateQuantityToBuy = (req, res) => {
+    let sql = "UPDATE Cart SET quantityToBuy="+req.body.quantityToBuy +" WHERE customerId='"+req.body.customerId+"' AND variantId='"+req.body.variantId+"';"
+    
+    db.query(sql, (error, response) => {
+        if(error){
+            res.code(400)
+            throw error;
+        }
+    
+        return res.status(200).send({
+            status: 'success',
+            data: response,
+            message: 'Quantity To Buy  Updated...'
+        })
+        
+    });
+   
+}
 

@@ -24,13 +24,19 @@ const routes = [
         schema: documentation.deleteCartProduct,
         preValidation: validators.validateDeleteCartProductRequest
     },
-    ,
     {
         method: "GET",
         url: "/getCartInfo",
         handler: controllers.getCartInfo,
         schema: documentation.getCartInfo,
         preValidation: validators.validateGetCartInfoRequest
+    },
+    {
+        method: "POST",
+        url: "/updateQuantityToBuy",
+        handler: controllers.updateQuantityToBuy,
+        schema: documentation.updateQuantityToBuy,
+        preValidation: validators.validateUpdateQuantityToBuyRequest
     }
     
 ]
