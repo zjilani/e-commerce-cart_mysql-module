@@ -31,7 +31,6 @@ exports.createCart = {
             },
             "quantity":{
                 "type":"number"
-                
             },
             "mainCategory":{
                 "type":"string",

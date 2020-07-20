@@ -25,7 +25,7 @@ exports.validateCreateCartRequest = function (req, res, done) {
         res.code(400)
         done(new HttpError('faliure', 20001, 'price is missing'))
     }
-    else if (!req.body.quantity) {
+    else if (!req.body.quantityToBuy) {
         res.code(400)
         done(new HttpError('faliure', 20001, 'quantity is missing'))
     }    
