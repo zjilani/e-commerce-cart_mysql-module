@@ -55,7 +55,7 @@ exports.validateGetCartInfo = function (req, res, done) {
         done()
     }
 }
-exports.validateUpdateQuantityToBuy = function (req, res, done) {
+exports.validateUpdateQuantityToBuyRequest = function (req, res, done) {
     if (!req.body.customerId) {
         res.code(400)
         done(new HttpError('faliure', 20002, 'customerId is missing'))
@@ -66,6 +66,15 @@ exports.validateUpdateQuantityToBuy = function (req, res, done) {
         res.code(400)
         done(new HttpError('faliure', 20001,'Quantity To Buy  is missing'))
     } 
+    else {
+        done()
+    }
+}
+exports.validateUpdateQuantityRequest = function (req, res, done) {
+    if (!req.body.variantId) {
+        res.code(400)
+        done(new HttpError('faliure', 20001, 'variantId is missing'))
+    }
     else {
         done()
     }

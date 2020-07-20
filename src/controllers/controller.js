@@ -1,5 +1,5 @@
 const HttpError = require('../models/errors/httpError')
-
+const axios = require('axios')
 // Create a new folder in Documer Service
 const mysql = require('mysql');
 const db = mysql.createConnection({
@@ -108,5 +108,36 @@ exports.updateQuantityToBuy = (req, res) => {
         
     });
    
+}
+exports.updateQuantity = async (req,res) =>{
+    
+    const inventories = await axios.post('http://localhost:3001/getInventoryInfo',{variantId:req.body.variantId})
+    var sql = `UPDATE Cart SET quantity = CASE `
+
+    var variantId=`(`
+    inventories.data.data.forEach((variant,index)=>{
+        variantId += `"${variant.variantId}"`
+        sql += `WHEN variantId = "${variant.variantId}" THEN ${variant.inventory} `
+        if(req.body.variantId.length-1 !== index){
+            variantId += `,`
+        }
+    })
+    variantId += `)`
+    sql += `END WHERE variantId IN ${variantId};`
+    console.log(sql)
+
+    db.query(sql, (error, response) => {
+        if(error){
+            res.code(400)
+            throw error;
+        }
+    
+        return res.status(200).send({
+            status: 'success',
+            data: response,
+            message: 'Quantity Updated...'
+        })
+        
+    });
 }
 

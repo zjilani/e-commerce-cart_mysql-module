@@ -422,59 +422,6 @@ exports.createCart = {
                             "message": {
                                 "type": "string"
                             }
-                            // "data": {
-                            //     "type": "array",
-                            //     "properties": {
-                            //         "customerId": {
-                            //             "type": "string"
-                            //         },
-                            //         "productId": {
-                            //             "type": "string"
-                            //         },
-                            //         "variantId":{
-                            //             "type":"string",
-                            //         },
-                            //         "productName":{
-                            //             "type":"string"
-                            //         },
-                            //         "color":{
-                            //             "type": "string"
-                            //         },
-                            //         "size":{
-                            //             "type":"string"
-                            //         },
-                            //         "price":{
-                            //             "type":"number"
-                            //         },
-                            //         "quantityToBuy":{
-                            //             "type":"number"
-                            //         },
-                            //         "quantity":{
-                            //             "type":"number"
-                                        
-                            //         },
-                            //         "mainCategory":{
-                            //             "type":"string",
-                            //             "enum":["MEN","WOMEN","ELECTRONICS","APPLIANCES"],
-                            //         },
-                            //         "subCategory":{
-                            //             "type":"string",
-                            //         }
-                            //     },
-                            //     "required": [
-                            //         "customerId",
-                            //         "productId",
-                            //         "variantId",
-                            //         "productName",
-                            //         "color",
-                            //         "size",
-                            //         "price",
-                            //         "quantityToBuy",
-                            //         "quantity",
-                            //         "mainCategory",
-                            //         "subCategory"
-                            //     ]
-                            // },
                         },
                                 "required": [
                                         "status",
@@ -529,3 +476,87 @@ exports.createCart = {
                     }
                 }
                 }
+                exports.updateQuantity = {
+                    description: 'Updating Quantity from Shopping Cart',
+                    tags: ["Carts"],
+                    summary: 'Updating Quantity',
+                    body: {
+                        "type": "object",
+                        "properties": {
+                            "variantId": {
+                                "type": "array",
+                                "items":{
+                                    "type":"string"
+                                }
+                            }
+                        },
+                        "required": [
+                            "variantId"
+                        ]
+                    },
+                    response: {
+                        200: {
+                            description: 'Successful response',
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "enum": ['faliure', 'success'],
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                                    "required": [
+                                            "status",
+                                            "message"
+                                            ]
+                        }, 400: {
+                            "description": 'Error response',
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "errorCause": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "status",
+                                "message",
+                                "code"
+                            ]
+                        },
+                        500: {
+                            "description": 'Error response',
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "code": {
+                                    "type": "integer"
+                                },
+                                "errorCause": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "status",
+                                "message",
+                                "code",
+                                "errorCause"
+                            ]
+                        }
+                    }
+                    }
